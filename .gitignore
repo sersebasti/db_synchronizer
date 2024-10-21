@@ -1,0 +1,8 @@
+backups/mariadb/data/
+backups/mariadb/logs_backup_db/
+backups/postgres/data/
+backups/postgres/logs_backup_db/
+allineamento_db/changes.sql
+allineamento_db/start_time.txt
+allineamento_db/master/log.txt
+*.sql

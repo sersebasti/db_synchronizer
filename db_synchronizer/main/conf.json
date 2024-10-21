@@ -1,0 +1,22 @@
+{
+    "database":{
+      "server": "10.115.1.100",
+      "db": "alstom",
+      "port": "3306",
+      "username": "root",
+      "password": "sW1OJTmFIyudlVIk",
+      "table": "ping",
+      "snapshot_table": "ping_snapshot",
+      "pk": "ID",
+      "timestamp_col": "modified_at",
+      "time_zone": "Europe/Amsterdam"
+    },
+    "paths": {
+        "sql_filename": "changes.sql",
+        "start_time_filename": "start_time_filename.txt",
+        "log_filename": "log.txt"
+    },
+    "period_min": "25",
+    "url": "https://www.servicecontrolroom.it/dev_sergio/db_synchronizer/remote/"
+}
+    

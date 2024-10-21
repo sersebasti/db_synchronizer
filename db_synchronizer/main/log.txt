@@ -1,0 +1,569 @@
+2024-10-11 14:37:13: Start Generate SQL
+2024-10-11 14:37:14: Connected to server: 10.115.1.100 database:alstom
+2024-10-11 14:37:14: Start searching records new or modified records
+2024-10-11 14:37:14: Executed query: SELECT * FROM ping WHERE modified_at > '2024-10-11 14:35:28' AND modified_at <= '2024-10-11 14:37:14'
+2024-10-11 14:37:14: Found: 172 records new or modified
+2024-10-11 14:37:14: Stop searching records new or modified records
+2024-10-11 14:37:14: Start searching deleted records
+2024-10-11 14:37:14: Found primary key: ID
+2024-10-11 14:37:14: Executed query: SELECT alstom.ping_snapshot.ID FROM alstom.ping_snapshot LEFT JOIN alstom.ping ON ping.ID = alstom.ping_snapshot.ID WHERE ping.ID IS NULL
+2024-10-11 14:37:14: Found: 170 dleted records
+2024-10-11 14:37:14: Executed query: TRUNCATE alstom.ping_snapshot
+2024-10-11 14:37:14: Executed query: INSERT INTO alstom.ping_snapshot(ID) SELECT ID FROM alstom.ping
+2024-10-11 14:37:14: Stop searching deleted records
+2024-10-11 14:37:14: Closed connection with dB
+2024-10-11 14:37:14: Saved last execution time: 2024-10-11 14:37:14 in start_time_filename.txt
+2024-10-11 14:37:14: Start sending post request to remote server
+2024-10-11 14:37:14: Changes Update/Insert: 172
+2024-10-11 14:37:14: Changes Delete: 170
+2024-10-11 14:37:14: renamed: /var/www/html/api/allineamento_db/master/changes.sql into: /var/www/html/api/allineamento_db/master/20241011143528_20241011143714_changes.sql
+2024-10-11 14:37:15: Response:cURL error: Could not resolve host: apache-web-tool.servicecontrolroom-dev.smart-mobility.alstom.com (errno: 6)
+2024-10-11 14:40:41: Start Generate SQL
+2024-10-11 14:40:41: Connected to server: 10.115.1.100 database:alstom
+2024-10-11 14:40:41: Start searching records new or modified records
+2024-10-11 14:40:41: Executed query: SELECT * FROM ping WHERE modified_at > '2024-10-11 14:37:14' AND modified_at <= '2024-10-11 14:40:41'
+2024-10-11 14:40:41: Found: 866 records new or modified
+2024-10-11 14:40:42: Stop searching records new or modified records
+2024-10-11 14:40:42: Start searching deleted records
+2024-10-11 14:40:42: Found primary key: ID
+2024-10-11 14:40:42: Executed query: SELECT alstom.ping_snapshot.ID FROM alstom.ping_snapshot LEFT JOIN alstom.ping ON ping.ID = alstom.ping_snapshot.ID WHERE ping.ID IS NULL
+2024-10-11 14:40:42: Found: 867 dleted records
+2024-10-11 14:40:42: Executed query: TRUNCATE alstom.ping_snapshot
+2024-10-11 14:40:42: Executed query: INSERT INTO alstom.ping_snapshot(ID) SELECT ID FROM alstom.ping
+2024-10-11 14:40:42: Stop searching deleted records
+2024-10-11 14:40:42: Closed connection with dB
+2024-10-11 14:40:42: Saved last execution time: 2024-10-11 14:40:41 in start_time_filename.txt
+2024-10-11 14:40:42: Start sending post request to remote server
+2024-10-11 14:40:42: Changes Update/Insert: 866
+2024-10-11 14:40:42: Changes Delete: 867
+2024-10-11 14:40:42: renamed: /var/www/html/api/allineamento_db/master/changes.sql into: /var/www/html/api/allineamento_db/master/20241011143714_20241011144041_changes.sql
+2024-10-11 14:40:42: Response:cURL error: Could not resolve host: apache-web-tool.servicecontrolroom-dev.smart-mobility.alstom.com (errno: 6)
+2024-10-11 14:40:42: Stop sending post request to remote server
+2024-10-11 14:54:36: Start Generate ans Send SQL
+2024-10-11 14:54:48: Error connection to server: 10.115.1.100 database:alstom error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'10.114.144.61' (using password: YES)
+2024-10-11 14:55:31: Start Generate ans Send SQL
+2024-10-11 14:55:32: Error connection to server: 10.115.1.100 database:alstom error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'10.114.144.61' (using password: YES)
+2024-10-11 14:55:36: Start Generate ans Send SQL
+2024-10-11 14:55:37: Connected to server: 10.115.1.100 database:alstom
+2024-10-11 14:55:37: Start searching records new or modified records
+2024-10-11 14:55:38: Executed query: SELECT * FROM ping WHERE modified_at > '2024-10-11 14:40:41' AND modified_at <= '2024-10-11 14:55:37'
+2024-10-11 14:55:38: Found: 1449 records new or modified
+2024-10-11 14:55:39: Stop searching records new or modified records
+2024-10-11 14:55:39: Start searching deleted records
+2024-10-11 14:55:39: Found primary key: ID
+2024-10-11 14:55:39: Executed query: SELECT alstom.ping_snapshot.ID FROM alstom.ping_snapshot LEFT JOIN alstom.ping ON ping.ID = alstom.ping_snapshot.ID WHERE ping.ID IS NULL
+2024-10-11 14:55:39: Found: 1451 dleted records
+2024-10-11 14:55:40: Executed query: TRUNCATE alstom.ping_snapshot
+2024-10-11 14:55:40: Executed query: INSERT INTO alstom.ping_snapshot(ID) SELECT ID FROM alstom.ping
+2024-10-11 14:55:40: Stop searching deleted records
+2024-10-11 14:55:40: Closed connection with dB
+2024-10-11 14:55:40: Saved last execution time: 2024-10-11 14:55:37 in start_time_filename.txt
+2024-10-11 14:55:40: Start sending post request to remote server
+2024-10-11 14:55:40: Changes Update/Insert: 1449
+2024-10-11 14:55:40: Changes Delete: 1451
+2024-10-11 14:55:40: renamed: /var/www/html/api/allineamento_db/master/changes.sql into: /var/www/html/api/allineamento_db/master/20241011144041_20241011145537_changes.sql
+2024-10-11 14:55:40: Response:cURL error: Could not resolve host: apache-web-tool.servicecontrolroom-dev.smart-mobility.alstom.com (errno: 6)
+2024-10-11 14:55:40: Stop sending post request to remote server
+2024-10-11 14:55:40: Stop Generate ans Send SQL
+2024-10-11 14:57:16: Start Generate and Send SQL
+2024-10-11 14:57:17: Connected to server: 10.115.1.100 database:alstom
+2024-10-11 14:57:17: Start searching records new or modified records
+2024-10-11 14:57:18: Executed query: SELECT * FROM ping WHERE modified_at > '2024-10-11 14:55:37' AND modified_at <= '2024-10-11 14:57:17'
+2024-10-11 14:57:18: Found: 135 records new or modified
+2024-10-11 14:57:18: Stop searching records new or modified records
+2024-10-11 14:57:18: Start searching deleted records
+2024-10-11 14:57:18: Found primary key: ID
+2024-10-11 14:57:18: Executed query: SELECT alstom.ping_snapshot.ID FROM alstom.ping_snapshot LEFT JOIN alstom.ping ON ping.ID = alstom.ping_snapshot.ID WHERE ping.ID IS NULL
+2024-10-11 14:57:18: Found: 133 dleted records
+2024-10-11 14:57:18: Executed query: TRUNCATE alstom.ping_snapshot
+2024-10-11 14:57:19: Executed query: INSERT INTO alstom.ping_snapshot(ID) SELECT ID FROM alstom.ping
+2024-10-11 14:57:19: Stop searching deleted records
+2024-10-11 14:57:19: Closed connection with dB
+2024-10-11 14:57:19: Saved last execution time: 2024-10-11 14:57:17 in start_time_filename.txt
+2024-10-11 14:57:19: Start sending post request to remote server
+2024-10-11 14:57:19: Changes Update/Insert: 135
+2024-10-11 14:57:19: Changes Delete: 133
+2024-10-11 14:57:19: renamed: /var/www/html/api/allineamento_db/master/changes.sql into: /var/www/html/api/allineamento_db/master/20241011145537_20241011145717_changes.sql
+2024-10-11 14:57:19: Response:cURL error: Could not resolve host: apache-web-tool.servicecontrolroom-dev.smart-mobility.alstom.com (errno: 6)
+2024-10-11 14:57:19: Stop sending post request to remote server
+2024-10-11 14:57:19: Stop Generate and Send SQL
+2024-10-11 15:02:09: Start Generate and Send SQL
+2024-10-11 15:02:09: Connected to server: 10.115.1.100 database:alstom
+2024-10-11 15:02:09: Start searching records new or modified records
+2024-10-11 15:02:09: Executed query: SELECT * FROM ping WHERE modified_at > '2024-10-11 14:57:17' AND modified_at <= '2024-10-11 15:02:09'
+2024-10-11 15:02:09: Found: 342 records new or modified
+2024-10-11 15:02:09: Stop searching records new or modified records
+2024-10-11 15:02:09: Start searching deleted records
+2024-10-11 15:02:09: Found primary key: ID
+2024-10-11 15:02:10: Executed query: SELECT alstom.ping_snapshot.ID FROM alstom.ping_snapshot LEFT JOIN alstom.ping ON ping.ID = alstom.ping_snapshot.ID WHERE ping.ID IS NULL
+2024-10-11 15:02:10: Found: 339 dleted records
+2024-10-11 15:02:10: Executed query: TRUNCATE alstom.ping_snapshot
+2024-10-11 15:02:10: Executed query: INSERT INTO alstom.ping_snapshot(ID) SELECT ID FROM alstom.ping
+2024-10-11 15:02:10: Stop searching deleted records
+2024-10-11 15:02:10: Closed connection with dB
+2024-10-11 15:02:10: Saved last execution time: 2024-10-11 15:02:09 in start_time_filename.txt
+2024-10-11 15:02:10: Start sending post request to remote server
+2024-10-11 15:02:10: Changes Update/Insert: 342
+2024-10-11 15:02:10: Changes Delete: 339
+2024-10-11 15:02:10: renamed: /var/www/html/api/db_synchronizer/master/changes.sql into: /var/www/html/api/db_synchronizer/master/20241011145717_20241011150209_changes.sql
+2024-10-11 15:02:10: Response:cURL error: Could not resolve host: apache-web-tool.servicecontrolroom-dev.smart-mobility.alstom.com (errno: 6)
+2024-10-11 15:02:10: Stop sending post request to remote server
+2024-10-11 15:02:10: Stop Generate and Send SQL
+2024-10-11 15:02:14: Start Generate and Send SQL
+2024-10-11 15:02:14: Connected to server: 10.115.1.100 database:alstom
+2024-10-11 15:02:14: Start searching records new or modified records
+2024-10-11 15:02:14: Executed query: SELECT * FROM ping WHERE modified_at > '2024-10-11 15:02:09' AND modified_at <= '2024-10-11 15:02:14'
+2024-10-11 15:02:14: Found: 6 records new or modified
+2024-10-11 15:02:14: Stop searching records new or modified records
+2024-10-11 15:02:14: Start searching deleted records
+2024-10-11 15:02:14: Found primary key: ID
+2024-10-11 15:02:14: Executed query: SELECT alstom.ping_snapshot.ID FROM alstom.ping_snapshot LEFT JOIN alstom.ping ON ping.ID = alstom.ping_snapshot.ID WHERE ping.ID IS NULL
+2024-10-11 15:02:14: Found: 5 dleted records
+2024-10-11 15:02:15: Executed query: TRUNCATE alstom.ping_snapshot
+2024-10-11 15:02:15: Executed query: INSERT INTO alstom.ping_snapshot(ID) SELECT ID FROM alstom.ping
+2024-10-11 15:02:15: Stop searching deleted records
+2024-10-11 15:02:15: Closed connection with dB
+2024-10-11 15:02:15: Saved last execution time: 2024-10-11 15:02:14 in start_time_filename.txt
+2024-10-11 15:02:15: Start sending post request to remote server
+2024-10-11 15:02:15: Changes Update/Insert: 6
+2024-10-11 15:02:15: Changes Delete: 5
+2024-10-11 15:02:15: renamed: /var/www/html/api/db_synchronizer/master/changes.sql into: /var/www/html/api/db_synchronizer/master/20241011150209_20241011150214_changes.sql
+2024-10-11 15:02:15: Response:cURL error: Could not resolve host: apache-web-tool.servicecontrolroom-dev.smart-mobility.alstom.com (errno: 6)
+2024-10-11 15:02:15: Stop sending post request to remote server
+2024-10-11 15:02:15: Stop Generate and Send SQL
+2024-10-11 15:02:17: Start Generate and Send SQL
+2024-10-11 15:02:18: Connected to server: 10.115.1.100 database:alstom
+2024-10-11 15:02:18: Start searching records new or modified records
+2024-10-11 15:02:18: Executed query: SELECT * FROM ping WHERE modified_at > '2024-10-11 15:02:14' AND modified_at <= '2024-10-11 15:02:18'
+2024-10-11 15:02:18: Found: 4 records new or modified
+2024-10-11 15:02:18: Stop searching records new or modified records
+2024-10-11 15:02:18: Start searching deleted records
+2024-10-11 15:02:18: Found primary key: ID
+2024-10-11 15:02:18: Executed query: SELECT alstom.ping_snapshot.ID FROM alstom.ping_snapshot LEFT JOIN alstom.ping ON ping.ID = alstom.ping_snapshot.ID WHERE ping.ID IS NULL
+2024-10-11 15:02:18: Found: 2 dleted records
+2024-10-11 15:02:18: Executed query: TRUNCATE alstom.ping_snapshot
+2024-10-11 15:02:19: Executed query: INSERT INTO alstom.ping_snapshot(ID) SELECT ID FROM alstom.ping
+2024-10-11 15:02:19: Stop searching deleted records
+2024-10-11 15:02:19: Closed connection with dB
+2024-10-11 15:02:19: Saved last execution time: 2024-10-11 15:02:18 in start_time_filename.txt
+2024-10-11 15:02:19: Start sending post request to remote server
+2024-10-11 15:02:19: Changes Update/Insert: 4
+2024-10-11 15:02:19: Changes Delete: 2
+2024-10-11 15:02:19: renamed: /var/www/html/api/db_synchronizer/master/changes.sql into: /var/www/html/api/db_synchronizer/master/20241011150214_20241011150218_changes.sql
+2024-10-11 15:02:19: Response:cURL error: Could not resolve host: apache-web-tool.servicecontrolroom-dev.smart-mobility.alstom.com (errno: 6)
+2024-10-11 15:02:19: Stop sending post request to remote server
+2024-10-11 15:02:19: Stop Generate and Send SQL
+2024-10-11 15:02:26: Start Generate and Send SQL
+2024-10-11 15:02:26: Connected to server: 10.115.1.100 database:alstom
+2024-10-11 15:02:26: Start searching records new or modified records
+2024-10-11 15:02:26: Executed query: SELECT * FROM ping WHERE modified_at > '2024-10-11 15:02:18' AND modified_at <= '2024-10-11 15:02:26'
+2024-10-11 15:02:26: Found: 9 records new or modified
+2024-10-11 15:02:26: Stop searching records new or modified records
+2024-10-11 15:02:26: Start searching deleted records
+2024-10-11 15:02:26: Found primary key: ID
+2024-10-11 15:02:27: Executed query: SELECT alstom.ping_snapshot.ID FROM alstom.ping_snapshot LEFT JOIN alstom.ping ON ping.ID = alstom.ping_snapshot.ID WHERE ping.ID IS NULL
+2024-10-11 15:02:27: Found: 9 dleted records
+2024-10-11 15:02:27: Executed query: TRUNCATE alstom.ping_snapshot
+2024-10-11 15:02:27: Executed query: INSERT INTO alstom.ping_snapshot(ID) SELECT ID FROM alstom.ping
+2024-10-11 15:02:27: Stop searching deleted records
+2024-10-11 15:02:27: Closed connection with dB
+2024-10-11 15:02:27: Saved last execution time: 2024-10-11 15:02:26 in start_time_filename.txt
+2024-10-11 15:02:27: Start sending post request to remote server
+2024-10-11 15:02:27: Changes Update/Insert: 9
+2024-10-11 15:02:27: Changes Delete: 9
+2024-10-11 15:02:27: renamed: /var/www/html/api/db_synchronizer/master/changes.sql into: /var/www/html/api/db_synchronizer/master/20241011150218_20241011150226_changes.sql
+2024-10-11 15:02:27: Response:cURL error: Could not resolve host: apache-web-tool.servicecontrolroom-dev.smart-mobility.alstom.com (errno: 6)
+2024-10-11 15:02:27: Stop sending post request to remote server
+2024-10-11 15:02:27: Stop Generate and Send SQL
+2024-10-11 15:03:33: Start Generate and Send SQL
+2024-10-11 15:03:33: Connected to server: 10.115.1.100 database:alstom
+2024-10-11 15:03:33: Start searching records new or modified records
+2024-10-11 15:03:33: Executed query: SELECT * FROM ping WHERE modified_at > '2024-10-11 15:02:26' AND modified_at <= '2024-10-11 15:03:33'
+2024-10-11 15:03:33: Found: 153 records new or modified
+2024-10-11 15:03:33: Stop searching records new or modified records
+2024-10-11 15:03:33: Start searching deleted records
+2024-10-11 15:03:33: Found primary key: ID
+2024-10-11 15:03:33: Executed query: SELECT alstom.ping_snapshot.ID FROM alstom.ping_snapshot LEFT JOIN alstom.ping ON ping.ID = alstom.ping_snapshot.ID WHERE ping.ID IS NULL
+2024-10-11 15:03:33: Found: 157 dleted records
+2024-10-11 15:03:33: Executed query: TRUNCATE alstom.ping_snapshot
+2024-10-11 15:03:33: Executed query: INSERT INTO alstom.ping_snapshot(ID) SELECT ID FROM alstom.ping
+2024-10-11 15:03:33: Stop searching deleted records
+2024-10-11 15:03:33: Closed connection with dB
+2024-10-11 15:03:33: Saved last execution time: 2024-10-11 15:03:33 in start_time_filename.txt
+2024-10-11 15:03:33: Start sending post request to remote server
+2024-10-11 15:03:33: Changes Update/Insert: 153
+2024-10-11 15:03:33: Changes Delete: 157
+2024-10-11 15:03:33: renamed: /var/www/html/api/db_synchronizer/master/changes.sql into: /var/www/html/api/db_synchronizer/master/20241011150226_20241011150333_changes.sql
+2024-10-11 15:03:33: Response:cURL error: Could not resolve host: apache-web-tool.servicecontrolroom-dev.smart-mobility.alstom.com (errno: 6)
+2024-10-11 15:03:33: Stop sending post request to remote server
+2024-10-11 15:03:33: Stop Generate and Send SQL
+2024-10-11 15:06:50: Start Generate and Send SQL
+2024-10-11 15:06:50: Connected to server: 10.115.1.100 database:alstom
+2024-10-11 15:06:51: Start searching records new or modified records
+2024-10-11 15:06:51: Executed query: SELECT * FROM ping WHERE modified_at > '2024-10-11 15:03:33' AND modified_at <= '2024-10-11 15:06:50'
+2024-10-11 15:06:51: Found: 334 records new or modified
+2024-10-11 15:06:51: Stop searching records new or modified records
+2024-10-11 15:06:51: Start searching deleted records
+2024-10-11 15:06:51: Found primary key: ID
+2024-10-11 15:06:51: Executed query: SELECT alstom.ping_snapshot.ID FROM alstom.ping_snapshot LEFT JOIN alstom.ping ON ping.ID = alstom.ping_snapshot.ID WHERE ping.ID IS NULL
+2024-10-11 15:06:51: Found: 333 dleted records
+2024-10-11 15:06:52: Executed query: TRUNCATE alstom.ping_snapshot
+2024-10-11 15:06:52: Executed query: INSERT INTO alstom.ping_snapshot(ID) SELECT ID FROM alstom.ping
+2024-10-11 15:06:52: Stop searching deleted records
+2024-10-11 15:06:52: Closed connection with dB
+2024-10-11 15:06:52: Saved last execution time: 2024-10-11 15:06:50 in start_time_filename.txt
+2024-10-11 15:06:52: Start sending post request to remote server
+2024-10-11 15:06:52: Changes Update/Insert: 334
+2024-10-11 15:06:52: Changes Delete: 333
+2024-10-11 15:06:52: renamed: /var/www/html/api/db_synchronizer/master/changes.sql into: /var/www/html/api/db_synchronizer/master/20241011150333_20241011150650_changes.sql
+2024-10-11 15:06:52: Response:cURL error: SSL certificate problem: unable to get local issuer certificate (errno: 60)
+2024-10-11 15:06:52: Stop sending post request to remote server
+2024-10-11 15:06:52: Stop Generate and Send SQL
+2024-10-11 15:07:47: Start Generate and Send SQL
+2024-10-11 15:07:48: Connected to server: 10.115.1.100 database:alstom
+2024-10-11 15:07:48: Start searching records new or modified records
+2024-10-11 15:07:48: Executed query: SELECT * FROM ping WHERE modified_at > '2024-10-11 15:06:50' AND modified_at <= '2024-10-11 15:07:48'
+2024-10-11 15:07:48: Found: 98 records new or modified
+2024-10-11 15:07:48: Stop searching records new or modified records
+2024-10-11 15:07:48: Start searching deleted records
+2024-10-11 15:07:48: Found primary key: ID
+2024-10-11 15:07:48: Executed query: SELECT alstom.ping_snapshot.ID FROM alstom.ping_snapshot LEFT JOIN alstom.ping ON ping.ID = alstom.ping_snapshot.ID WHERE ping.ID IS NULL
+2024-10-11 15:07:48: Found: 117 dleted records
+2024-10-11 15:07:48: Executed query: TRUNCATE alstom.ping_snapshot
+2024-10-11 15:07:49: Executed query: INSERT INTO alstom.ping_snapshot(ID) SELECT ID FROM alstom.ping
+2024-10-11 15:07:49: Stop searching deleted records
+2024-10-11 15:07:49: Closed connection with dB
+2024-10-11 15:07:49: Saved last execution time: 2024-10-11 15:07:48 in start_time_filename.txt
+2024-10-11 15:07:49: Start sending post request to remote server at: 
+2024-10-11 15:07:49: Changes Update/Insert: 98
+2024-10-11 15:07:49: Changes Delete: 117
+2024-10-11 15:07:49: renamed: /var/www/html/api/db_synchronizer/master/changes.sql into: /var/www/html/api/db_synchronizer/master/20241011150650_20241011150748_changes.sql
+2024-10-11 15:07:49: Response:cURL error: SSL certificate problem: unable to get local issuer certificate (errno: 60)
+2024-10-11 15:07:49: Stop sending post request to remote server
+2024-10-11 15:07:49: Stop Generate and Send SQL
+2024-10-11 15:08:42: Start Generate and Send SQL
+2024-10-11 15:08:42: Connected to server: 10.115.1.100 database:alstom
+2024-10-11 15:08:42: Start searching records new or modified records
+2024-10-11 15:08:42: Executed query: SELECT * FROM ping WHERE modified_at > '2024-10-11 15:07:48' AND modified_at <= '2024-10-11 15:08:42'
+2024-10-11 15:08:42: Found: 254 records new or modified
+2024-10-11 15:08:42: Stop searching records new or modified records
+2024-10-11 15:08:42: Start searching deleted records
+2024-10-11 15:08:42: Found primary key: ID
+2024-10-11 15:08:43: Executed query: SELECT alstom.ping_snapshot.ID FROM alstom.ping_snapshot LEFT JOIN alstom.ping ON ping.ID = alstom.ping_snapshot.ID WHERE ping.ID IS NULL
+2024-10-11 15:08:43: Found: 228 dleted records
+2024-10-11 15:08:43: Executed query: TRUNCATE alstom.ping_snapshot
+2024-10-11 15:08:43: Executed query: INSERT INTO alstom.ping_snapshot(ID) SELECT ID FROM alstom.ping
+2024-10-11 15:08:43: Stop searching deleted records
+2024-10-11 15:08:43: Closed connection with dB
+2024-10-11 15:08:43: Saved last execution time: 2024-10-11 15:08:42 in start_time_filename.txt
+2024-10-11 15:08:43: Start sending post request to remote server at: 
+2024-10-11 15:08:43: Changes Update/Insert: 254
+2024-10-11 15:08:43: Changes Delete: 228
+2024-10-11 15:08:43: renamed: /var/www/html/api/db_synchronizer/master/changes.sql into: /var/www/html/api/db_synchronizer/master/20241011150748_20241011150842_changes.sql
+2024-10-11 15:09:25: Response:cURL error: SSL certificate problem: unable to get local issuer certificate (errno: 60)
+2024-10-11 15:09:28: Stop sending post request to remote server
+2024-10-11 15:25:47: Start Generate and Send SQL
+2024-10-11 15:25:47: Connected to server: 10.115.1.100 database:alstom
+2024-10-11 15:25:47: Start searching records new or modified records
+2024-10-11 15:25:48: Executed query: SELECT * FROM ping WHERE modified_at > '2024-10-11 15:08:42' AND modified_at <= '2024-10-11 15:25:47'
+2024-10-11 15:25:48: Found: 2119 records new or modified
+2024-10-11 15:25:49: Stop searching records new or modified records
+2024-10-11 15:25:49: Start searching deleted records
+2024-10-11 15:25:49: Found primary key: ID
+2024-10-11 15:25:49: Executed query: SELECT alstom.ping_snapshot.ID FROM alstom.ping_snapshot LEFT JOIN alstom.ping ON ping.ID = alstom.ping_snapshot.ID WHERE ping.ID IS NULL
+2024-10-11 15:25:49: Found: 2116 dleted records
+2024-10-11 15:25:49: Executed query: TRUNCATE alstom.ping_snapshot
+2024-10-11 15:25:50: Executed query: INSERT INTO alstom.ping_snapshot(ID) SELECT ID FROM alstom.ping
+2024-10-11 15:25:50: Stop searching deleted records
+2024-10-11 15:25:50: Closed connection with dB
+2024-10-11 15:25:50: Saved last execution time: 2024-10-11 15:25:47 in start_time_filename.txt
+2024-10-11 15:25:50: Start sending post request to remote server at: 
+2024-10-11 15:25:50: Changes Update/Insert: 2119
+2024-10-11 15:25:50: Changes Delete: 2116
+2024-10-11 15:25:50: renamed: /var/www/html/api/db_synchronizer/master/changes.sql into: /var/www/html/api/db_synchronizer/master/20241011150842_20241011152547_changes.sql
+2024-10-11 15:25:50: Response:cURL error: SSL certificate problem: unable to get local issuer certificate (errno: 60)
+2024-10-11 15:25:50: Stop sending post request to remote server
+2024-10-11 15:25:50: Stop Generate and Send SQL
+2024-10-11 15:49:11: Start Generate and Send SQL
+2024-10-11 15:49:11: Connected to server: 10.115.1.100 database:alstom
+2024-10-11 15:49:11: Start searching records new or modified records
+2024-10-11 15:49:12: Executed query: SELECT * FROM ping WHERE modified_at > '2024-10-11 15:25:47' AND modified_at <= '2024-10-11 15:49:11'
+2024-10-11 15:49:12: Found: 2730 records new or modified
+2024-10-11 15:49:13: Stop searching records new or modified records
+2024-10-11 15:49:13: Start searching deleted records
+2024-10-11 15:49:13: Found primary key: ID
+2024-10-11 15:49:14: Executed query: SELECT alstom.ping_snapshot.ID FROM alstom.ping_snapshot LEFT JOIN alstom.ping ON ping.ID = alstom.ping_snapshot.ID WHERE ping.ID IS NULL
+2024-10-11 15:49:14: Found: 2733 dleted records
+2024-10-11 15:49:15: Executed query: TRUNCATE alstom.ping_snapshot
+2024-10-11 15:49:15: Executed query: INSERT INTO alstom.ping_snapshot(ID) SELECT ID FROM alstom.ping
+2024-10-11 15:49:15: Stop searching deleted records
+2024-10-11 15:49:15: Closed connection with dB
+2024-10-11 15:49:15: Saved last execution time: 2024-10-11 15:49:11 in start_time_filename.txt
+2024-10-11 15:49:15: Start sending post request to remote server at: 
+2024-10-11 15:49:15: Changes Update/Insert: 2730
+2024-10-11 15:49:15: Changes Delete: 2733
+2024-10-11 15:49:15: renamed: /var/www/html/api/db_synchronizer/master/changes.sql into: /var/www/html/api/db_synchronizer/master/20241011152547_20241011154911_changes.sql
+2024-10-11 15:49:15: Response:cURL error: SSL certificate problem: unable to get local issuer certificate (errno: 60)
+2024-10-11 15:49:15: Stop sending post request to remote server
+2024-10-11 15:49:15: Stop Generate and Send SQL
+2024-10-11 15:50:48: Start Generate and Send SQL
+2024-10-11 15:50:48: Connected to server: 10.115.1.100 database:alstom
+2024-10-11 15:50:48: Start searching records new or modified records
+2024-10-11 15:50:49: Executed query: SELECT * FROM ping WHERE modified_at > '2024-10-11 15:49:11' AND modified_at <= '2024-10-11 15:50:48'
+2024-10-11 15:50:49: Found: 132 records new or modified
+2024-10-11 15:50:49: Stop searching records new or modified records
+2024-10-11 15:50:49: Start searching deleted records
+2024-10-11 15:50:49: Found primary key: ID
+2024-10-11 15:50:49: Executed query: SELECT alstom.ping_snapshot.ID FROM alstom.ping_snapshot LEFT JOIN alstom.ping ON ping.ID = alstom.ping_snapshot.ID WHERE ping.ID IS NULL
+2024-10-11 15:50:49: Found: 128 dleted records
+2024-10-11 15:50:49: Executed query: TRUNCATE alstom.ping_snapshot
+2024-10-11 15:50:50: Executed query: INSERT INTO alstom.ping_snapshot(ID) SELECT ID FROM alstom.ping
+2024-10-11 15:50:50: Stop searching deleted records
+2024-10-11 15:50:50: Closed connection with dB
+2024-10-11 15:50:50: Saved last execution time: 2024-10-11 15:50:48 in start_time_filename.txt
+2024-10-11 15:50:50: Start sending post request to remote server at: 
+2024-10-11 15:50:50: Changes Update/Insert: 132
+2024-10-11 15:50:50: Changes Delete: 128
+2024-10-11 15:50:50: renamed: /var/www/html/api/db_synchronizer/master/changes.sql into: /var/www/html/api/db_synchronizer/master/20241011154911_20241011155048_changes.sql
+2024-10-11 15:50:50: Response:cURL error: SSL certificate problem: unable to get local issuer certificate (errno: 60)
+2024-10-11 15:50:50: Stop sending post request to remote server
+2024-10-11 15:50:50: Stop Generate and Send SQL
+2024-10-11 15:53:13: Start Generate and Send SQL
+2024-10-11 15:53:14: Connected to server: 10.115.1.100 database:alstom
+2024-10-11 15:53:14: Start searching records new or modified records
+2024-10-11 15:53:14: Executed query: SELECT * FROM ping WHERE modified_at > '2024-10-11 15:50:48' AND modified_at <= '2024-10-11 15:53:14'
+2024-10-11 15:53:14: Found: 207 records new or modified
+2024-10-11 15:53:14: Stop searching records new or modified records
+2024-10-11 15:53:14: Start searching deleted records
+2024-10-11 15:53:14: Found primary key: ID
+2024-10-11 15:53:15: Executed query: SELECT alstom.ping_snapshot.ID FROM alstom.ping_snapshot LEFT JOIN alstom.ping ON ping.ID = alstom.ping_snapshot.ID WHERE ping.ID IS NULL
+2024-10-11 15:53:15: Found: 202 dleted records
+2024-10-11 15:53:15: Executed query: TRUNCATE alstom.ping_snapshot
+2024-10-11 15:53:15: Executed query: INSERT INTO alstom.ping_snapshot(ID) SELECT ID FROM alstom.ping
+2024-10-11 15:53:15: Stop searching deleted records
+2024-10-11 15:53:15: Closed connection with dB
+2024-10-11 15:53:15: Saved last execution time: 2024-10-11 15:53:14 in start_time_filename.txt
+2024-10-11 15:53:15: Start sending post request to remote server at: 
+2024-10-11 15:53:15: Changes Update/Insert: 207
+2024-10-11 15:53:15: Changes Delete: 202
+2024-10-11 15:53:15: renamed: /var/www/html/api/db_synchronizer/master/changes.sql into: /var/www/html/api/db_synchronizer/master/20241011155048_20241011155314_changes.sql
+2024-10-11 15:53:17: Response:cURL error: SSL certificate problem: unable to get local issuer certificate (errno: 60)
+2024-10-11 15:53:17: Stop sending post request to remote server
+2024-10-11 15:53:17: Stop Generate and Send SQL
+2024-10-11 16:03:08: Start Generate and Send SQL
+2024-10-11 16:03:09: Connected to server: 10.115.1.100 database:alstom
+2024-10-11 16:03:09: Start searching records new or modified records
+2024-10-11 16:03:09: Executed query: SELECT * FROM ping WHERE modified_at > '2024-10-11 15:53:14' AND modified_at <= '2024-10-11 16:03:09'
+2024-10-11 16:03:09: Found: 841 records new or modified
+2024-10-11 16:03:10: Stop searching records new or modified records
+2024-10-11 16:03:10: Start searching deleted records
+2024-10-11 16:03:10: Found primary key: ID
+2024-10-11 16:03:10: Executed query: SELECT alstom.ping_snapshot.ID FROM alstom.ping_snapshot LEFT JOIN alstom.ping ON ping.ID = alstom.ping_snapshot.ID WHERE ping.ID IS NULL
+2024-10-11 16:03:10: Found: 846 dleted records
+2024-10-11 16:03:10: Executed query: TRUNCATE alstom.ping_snapshot
+2024-10-11 16:03:11: Executed query: INSERT INTO alstom.ping_snapshot(ID) SELECT ID FROM alstom.ping
+2024-10-11 16:03:11: Stop searching deleted records
+2024-10-11 16:03:11: Closed connection with dB
+2024-10-11 16:03:11: Saved last execution time: 2024-10-11 16:03:09 in start_time_filename.txt
+2024-10-11 16:03:11: Start sending post request to remote server at: 
+2024-10-11 16:03:11: Changes Update/Insert: 841
+2024-10-11 16:03:11: Changes Delete: 846
+2024-10-11 16:03:11: renamed: /var/www/html/api/db_synchronizer/master/changes.sql into: /var/www/html/api/db_synchronizer/master/20241011155314_20241011160309_changes.sql
+2024-10-11 16:03:11: Response:cURL error: SSL certificate problem: unable to get local issuer certificate (errno: 60)
+2024-10-11 16:03:11: Stop sending post request to remote server
+2024-10-11 16:03:11: Stop Generate and Send SQL
+2024-10-11 16:03:14: Start Generate and Send SQL
+2024-10-11 16:03:14: Connected to server: 10.115.1.100 database:alstom
+2024-10-11 16:03:14: Start searching records new or modified records
+2024-10-11 16:03:15: Executed query: SELECT * FROM ping WHERE modified_at > '2024-10-11 16:03:09' AND modified_at <= '2024-10-11 16:03:14'
+2024-10-11 16:03:15: Found: 11 records new or modified
+2024-10-11 16:03:15: Stop searching records new or modified records
+2024-10-11 16:03:15: Start searching deleted records
+2024-10-11 16:03:15: Found primary key: ID
+2024-10-11 16:03:15: Executed query: SELECT alstom.ping_snapshot.ID FROM alstom.ping_snapshot LEFT JOIN alstom.ping ON ping.ID = alstom.ping_snapshot.ID WHERE ping.ID IS NULL
+2024-10-11 16:03:15: Found: 8 dleted records
+2024-10-11 16:03:16: Executed query: TRUNCATE alstom.ping_snapshot
+2024-10-11 16:03:16: Executed query: INSERT INTO alstom.ping_snapshot(ID) SELECT ID FROM alstom.ping
+2024-10-11 16:03:16: Stop searching deleted records
+2024-10-11 16:03:16: Closed connection with dB
+2024-10-11 16:03:16: Saved last execution time: 2024-10-11 16:03:14 in start_time_filename.txt
+2024-10-11 16:03:16: Start sending post request to remote server at: 
+2024-10-11 16:03:16: Changes Update/Insert: 11
+2024-10-11 16:03:16: Changes Delete: 8
+2024-10-11 16:03:16: renamed: /var/www/html/api/db_synchronizer/master/changes.sql into: /var/www/html/api/db_synchronizer/master/20241011160309_20241011160314_changes.sql
+2024-10-11 16:03:17: Response:cURL error: SSL certificate problem: unable to get local issuer certificate (errno: 60)
+2024-10-11 16:03:17: Stop sending post request to remote server
+2024-10-11 16:03:17: Stop Generate and Send SQL
+2024-10-11 16:03:27: Start Generate and Send SQL
+2024-10-11 16:03:28: Connected to server: 10.115.1.100 database:alstom
+2024-10-11 16:03:28: Start searching records new or modified records
+2024-10-11 16:03:28: Executed query: SELECT * FROM ping WHERE modified_at > '2024-10-11 16:03:14' AND modified_at <= '2024-10-11 16:03:28'
+2024-10-11 16:03:28: Found: 22 records new or modified
+2024-10-11 16:03:28: Stop searching records new or modified records
+2024-10-11 16:03:28: Start searching deleted records
+2024-10-11 16:03:28: Found primary key: ID
+2024-10-11 16:03:28: Executed query: SELECT alstom.ping_snapshot.ID FROM alstom.ping_snapshot LEFT JOIN alstom.ping ON ping.ID = alstom.ping_snapshot.ID WHERE ping.ID IS NULL
+2024-10-11 16:03:28: Found: 18 dleted records
+2024-10-11 16:03:28: Executed query: TRUNCATE alstom.ping_snapshot
+2024-10-11 16:03:28: Executed query: INSERT INTO alstom.ping_snapshot(ID) SELECT ID FROM alstom.ping
+2024-10-11 16:03:28: Stop searching deleted records
+2024-10-11 16:03:28: Closed connection with dB
+2024-10-11 16:03:28: Saved last execution time: 2024-10-11 16:03:28 in start_time_filename.txt
+2024-10-11 16:03:28: Start sending post request to remote server at: 
+2024-10-11 16:03:28: Changes Update/Insert: 22
+2024-10-11 16:03:28: Changes Delete: 18
+2024-10-11 16:03:28: renamed: /var/www/html/api/db_synchronizer/master/changes.sql into: /var/www/html/api/db_synchronizer/master/20241011160314_20241011160328_changes.sql
+2024-10-11 16:03:28: Response:cURL error: SSL certificate problem: unable to get local issuer certificate (errno: 60)
+2024-10-11 16:03:28: Stop sending post request to remote server
+2024-10-11 16:03:28: Stop Generate and Send SQL
+2024-10-11 16:06:40: Start Generate and Send SQL
+2024-10-11 16:06:41: Connected to server: 10.115.1.100 database:alstom
+2024-10-11 16:06:41: Start searching records new or modified records
+2024-10-11 16:06:41: Executed query: SELECT * FROM ping WHERE modified_at > '2024-10-11 16:03:28' AND modified_at <= '2024-10-11 16:06:41'
+2024-10-11 16:06:41: Found: 531 records new or modified
+2024-10-11 16:06:41: Stop searching records new or modified records
+2024-10-11 16:06:41: Start searching deleted records
+2024-10-11 16:06:41: Found primary key: ID
+2024-10-11 16:06:41: Executed query: SELECT alstom.ping_snapshot.ID FROM alstom.ping_snapshot LEFT JOIN alstom.ping ON ping.ID = alstom.ping_snapshot.ID WHERE ping.ID IS NULL
+2024-10-11 16:06:41: Found: 531 dleted records
+2024-10-11 16:06:42: Executed query: TRUNCATE alstom.ping_snapshot
+2024-10-11 16:06:42: Executed query: INSERT INTO alstom.ping_snapshot(ID) SELECT ID FROM alstom.ping
+2024-10-11 16:06:42: Stop searching deleted records
+2024-10-11 16:06:42: Closed connection with dB
+2024-10-11 16:06:42: Saved last execution time: 2024-10-11 16:06:41 in start_time_filename.txt
+2024-10-11 16:06:42: Start sending post request to remote server at: 
+2024-10-11 16:06:42: Changes Update/Insert: 531
+2024-10-11 16:06:42: Changes Delete: 531
+2024-10-11 16:06:42: renamed: /var/www/html/api/db_synchronizer/master/changes.sql into: /var/www/html/api/db_synchronizer/master/20241011160328_20241011160641_changes.sql
+2024-10-11 16:06:43: Response from server - start:
+2024-10-11 16:06:43: File 20241011160328_20241011160641_changes.sql uploaded successfullyFile is valid, and was successfully moved 
+2024-10-11 16:06:43: Response from server - stop
+2024-10-11 16:06:43: Stop sending post request to remote server
+2024-10-11 16:06:43: Stop Generate and Send SQL
+2024-10-11 16:06:53: Start Generate and Send SQL
+2024-10-11 16:06:53: Connected to server: 10.115.1.100 database:alstom
+2024-10-11 16:06:53: Start searching records new or modified records
+2024-10-11 16:06:53: Executed query: SELECT * FROM ping WHERE modified_at > '2024-10-11 16:06:41' AND modified_at <= '2024-10-11 16:06:53'
+2024-10-11 16:06:53: Found: 21 records new or modified
+2024-10-11 16:06:53: Stop searching records new or modified records
+2024-10-11 16:06:53: Start searching deleted records
+2024-10-11 16:06:53: Found primary key: ID
+2024-10-11 16:06:53: Executed query: SELECT alstom.ping_snapshot.ID FROM alstom.ping_snapshot LEFT JOIN alstom.ping ON ping.ID = alstom.ping_snapshot.ID WHERE ping.ID IS NULL
+2024-10-11 16:06:53: Found: 15 dleted records
+2024-10-11 16:06:53: Executed query: TRUNCATE alstom.ping_snapshot
+2024-10-11 16:06:54: Executed query: INSERT INTO alstom.ping_snapshot(ID) SELECT ID FROM alstom.ping
+2024-10-11 16:06:54: Stop searching deleted records
+2024-10-11 16:06:54: Closed connection with dB
+2024-10-11 16:06:54: Saved last execution time: 2024-10-11 16:06:53 in start_time_filename.txt
+2024-10-11 16:06:54: Start sending post request to remote server at: 
+2024-10-11 16:06:54: Changes Update/Insert: 21
+2024-10-11 16:06:54: Changes Delete: 15
+2024-10-11 16:06:54: renamed: /var/www/html/api/db_synchronizer/master/changes.sql into: /var/www/html/api/db_synchronizer/master/20241011160641_20241011160653_changes.sql
+2024-10-11 16:06:55: Response from server - start:
+2024-10-11 16:06:55: File 20241011160641_20241011160653_changes.sql uploaded successfullyFile is valid, and was successfully moved 
+2024-10-11 16:06:55: Response from server - stop
+2024-10-11 16:06:55: Stop sending post request to remote server
+2024-10-11 16:06:55: Stop Generate and Send SQL
+2024-10-11 16:07:00: Start Generate and Send SQL
+2024-10-11 16:07:00: Connected to server: 10.115.1.100 database:alstom
+2024-10-11 16:07:00: Start searching records new or modified records
+2024-10-11 16:07:01: Executed query: SELECT * FROM ping WHERE modified_at > '2024-10-11 16:06:53' AND modified_at <= '2024-10-11 16:07:00'
+2024-10-11 16:07:01: Found: 8 records new or modified
+2024-10-11 16:07:01: Stop searching records new or modified records
+2024-10-11 16:07:01: Start searching deleted records
+2024-10-11 16:07:01: Found primary key: ID
+2024-10-11 16:07:01: Executed query: SELECT alstom.ping_snapshot.ID FROM alstom.ping_snapshot LEFT JOIN alstom.ping ON ping.ID = alstom.ping_snapshot.ID WHERE ping.ID IS NULL
+2024-10-11 16:07:01: Found: 10 dleted records
+2024-10-11 16:07:01: Executed query: TRUNCATE alstom.ping_snapshot
+2024-10-11 16:07:01: Executed query: INSERT INTO alstom.ping_snapshot(ID) SELECT ID FROM alstom.ping
+2024-10-11 16:07:02: Stop searching deleted records
+2024-10-11 16:07:02: Closed connection with dB
+2024-10-11 16:07:02: Saved last execution time: 2024-10-11 16:07:00 in start_time_filename.txt
+2024-10-11 16:07:02: Start sending post request to remote server at: 
+2024-10-11 16:07:02: Changes Update/Insert: 8
+2024-10-11 16:07:02: Changes Delete: 10
+2024-10-11 16:07:02: renamed: /var/www/html/api/db_synchronizer/master/changes.sql into: /var/www/html/api/db_synchronizer/master/20241011160653_20241011160700_changes.sql
+2024-10-11 16:07:02: Response from server - start:
+2024-10-11 16:07:02: File 20241011160653_20241011160700_changes.sql uploaded successfullyFile is valid, and was successfully moved 
+2024-10-11 16:07:02: Response from server - stop
+2024-10-11 16:07:03: Stop sending post request to remote server
+2024-10-11 16:07:03: Stop Generate and Send SQL
+2024-10-11 16:08:25: Start Generate and Send SQL
+2024-10-11 16:08:25: Connected to server: 10.115.1.100 database:alstom
+2024-10-11 16:08:25: Start searching records new or modified records
+2024-10-11 16:08:26: Executed query: SELECT * FROM ping WHERE modified_at > '2024-10-11 16:07:00' AND modified_at <= '2024-10-11 16:08:25'
+2024-10-11 16:08:26: Found: 447 records new or modified
+2024-10-11 16:08:26: Stop searching records new or modified records
+2024-10-11 16:08:26: Start searching deleted records
+2024-10-11 16:08:26: Found primary key: ID
+2024-10-11 16:08:26: Executed query: SELECT alstom.ping_snapshot.ID FROM alstom.ping_snapshot LEFT JOIN alstom.ping ON ping.ID = alstom.ping_snapshot.ID WHERE ping.ID IS NULL
+2024-10-11 16:08:26: Found: 489 dleted records
+2024-10-11 16:08:27: Executed query: TRUNCATE alstom.ping_snapshot
+2024-10-11 16:08:27: Executed query: INSERT INTO alstom.ping_snapshot(ID) SELECT ID FROM alstom.ping
+2024-10-11 16:08:27: Stop searching deleted records
+2024-10-11 16:08:27: Closed connection with dB
+2024-10-11 16:08:27: Saved last execution time: 2024-10-11 16:08:25 in start_time_filename.txt
+2024-10-11 16:08:27: Start sending post request to remote server at: 
+2024-10-11 16:08:27: Changes Update/Insert: 447
+2024-10-11 16:08:27: Changes Delete: 489
+2024-10-11 16:08:27: renamed: /var/www/html/api/db_synchronizer/master/changes.sql into: /var/www/html/api/db_synchronizer/master/20241011160700_20241011160825_changes.sql
+2024-10-11 16:08:29: Response from server - start:
+2024-10-11 16:08:29: File 20241011160700_20241011160825_changes.sql uploaded successfullyFile is valid, and was successfully moved 
+2024-10-11 16:08:29: Response from server - stop
+2024-10-11 16:08:29: Stop sending post request to remote server
+2024-10-11 16:08:29: Stop Generate and Send SQL
+2024-10-11 16:20:08: Start Generate and Send SQL
+2024-10-11 16:20:08: Connected to server: 10.115.1.100 database:alstom
+2024-10-11 16:20:08: Start searching records new or modified records
+2024-10-11 16:20:08: Executed query: SELECT * FROM ping WHERE modified_at > '2024-10-11 16:08:25' AND modified_at <= '2024-10-11 16:20:08'
+2024-10-11 16:20:08: Found: 1659 records new or modified
+2024-10-11 16:20:09: Stop searching records new or modified records
+2024-10-11 16:20:09: Start searching deleted records
+2024-10-11 16:20:09: Found primary key: ID
+2024-10-11 16:20:09: Executed query: SELECT alstom.ping_snapshot.ID FROM alstom.ping_snapshot LEFT JOIN alstom.ping ON ping.ID = alstom.ping_snapshot.ID WHERE ping.ID IS NULL
+2024-10-11 16:20:09: Found: 1609 dleted records
+2024-10-11 16:20:10: Executed query: TRUNCATE alstom.ping_snapshot
+2024-10-11 16:20:10: Executed query: INSERT INTO alstom.ping_snapshot(ID) SELECT ID FROM alstom.ping
+2024-10-11 16:20:10: Stop searching deleted records
+2024-10-11 16:20:10: Closed connection with dB
+2024-10-11 16:20:10: Saved last execution time: 2024-10-11 16:20:08 in start_time_filename.txt
+2024-10-11 16:20:10: Start sending post request to remote server at: 
+2024-10-11 16:20:10: Changes Update/Insert: 1659
+2024-10-11 16:20:10: Changes Delete: 1609
+2024-10-11 16:20:10: renamed: /var/www/html/api/db_synchronizer/master/changes.sql into: /var/www/html/api/db_synchronizer/master/20241011160825_20241011162008_changes.sql
+2024-10-11 16:20:12: Response from server - start:
+2024-10-11 16:20:12: File 20241011160825_20241011162008_changes.sql uploaded successfullyFile is valid, and was successfully moved 
+2024-10-11 16:20:12: Response from server - stop
+2024-10-11 16:20:12: Stop sending post request to remote server
+2024-10-11 16:20:12: Stop Generate and Send SQL
+2024-10-11 16:26:49: Start Generate and Send SQL
+2024-10-11 16:26:49: Connected to server: 10.115.1.100 database:alstom
+2024-10-11 16:26:49: Start searching records new or modified records
+2024-10-11 16:26:49: Executed query: SELECT * FROM ping WHERE modified_at > '2024-10-11 16:20:08' AND modified_at <= '2024-10-11 16:26:49'
+2024-10-11 16:26:49: Found: 509 records new or modified
+2024-10-11 16:26:50: Stop searching records new or modified records
+2024-10-11 16:26:50: Start searching deleted records
+2024-10-11 16:26:50: Found primary key: ID
+2024-10-11 16:26:50: Executed query: SELECT alstom.ping_snapshot.ID FROM alstom.ping_snapshot LEFT JOIN alstom.ping ON ping.ID = alstom.ping_snapshot.ID WHERE ping.ID IS NULL
+2024-10-11 16:26:50: Found: 506 dleted records
+2024-10-11 16:26:50: Executed query: TRUNCATE alstom.ping_snapshot
+2024-10-11 16:26:50: Executed query: INSERT INTO alstom.ping_snapshot(ID) SELECT ID FROM alstom.ping
+2024-10-11 16:26:50: Stop searching deleted records
+2024-10-11 16:26:50: Closed connection with dB
+2024-10-11 16:26:50: Saved last execution time: 2024-10-11 16:26:49 in start_time_filename.txt
+2024-10-11 16:26:50: Start sending post request to remote server at: 
+2024-10-11 16:26:50: Changes Update/Insert: 509
+2024-10-11 16:26:50: Changes Delete: 506
+2024-10-11 16:26:50: renamed: /var/www/html/api/db_synchronizer/master/changes.sql into: /var/www/html/api/db_synchronizer/master/20241011162008_20241011162649_changes.sql
+2024-10-11 16:26:51: Response from server - start:
+2024-10-11 16:26:51: File 20241011162008_20241011162649_changes.sql uploaded successfullyFile is valid, and was successfully moved 
+2024-10-11 16:26:51: Response from server - stop
+2024-10-11 16:26:51: Stop sending post request to remote server
+2024-10-11 16:26:51: Stop Generate and Send SQL
+2024-10-18 16:03:50: Start Generate and Send SQL
+2024-10-18 16:04:11: Error connection to server: 10.115.1.100 database:alstom error: SQLSTATE[HY000] [2002] Connection refused
+2024-10-18 16:04:55: Start Generate and Send SQL
+2024-10-18 16:05:16: Error connection to server: 10.115.1.100 database:alstom error: SQLSTATE[HY000] [2002] Connection refused
+2024-10-21 09:27:56: Start Generate and Send SQL
+2024-10-21 09:28:00: Connected to server: 10.115.1.100 database:alstom
+2024-10-21 09:28:09: Start Time not found - set to: 2024-10-21 09:03:08
