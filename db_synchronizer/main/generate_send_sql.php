@@ -9,6 +9,12 @@
 
 /* Set configuration */
 
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+
+
+
 $conf = json_decode(file_get_contents("./conf.json"), true);
 
 $servername = $conf['database']['server'];
@@ -24,7 +30,8 @@ $snapshot_table = $conf['database']['snapshot_table'];
 $key = $conf['database']['pk'];
 $timestamp_col = $conf['database']['timestamp_col'];
 
-$sql_filename = $conf['paths']['sql_filename'];
+$sql_dir = $conf['paths']['sql_dir'];
+$sql_filename = $conf['paths']['sql_dir']."/".$conf['paths']['sql_filename'];
 $start_time_filename = $conf['paths']['start_time_filename'];
 $log_filename = $conf['paths']['log_filename'];
 
@@ -229,7 +236,7 @@ else{
     wlog($log_msg, $log_filename, 1);
 
 
-    $newFileName = $startTime. "_" . $endTime . "_" . $sql_filename;
+    $newFileName = $conf['paths']['sql_dir']."/".$startTime. "_" . $endTime . "_" . $conf['paths']['sql_filename'];
     $newFileName = str_replace(' ', '', $newFileName);
     $newFileName = str_replace('-', '', $newFileName);
     $newFileName = str_replace(':', '', $newFileName);
