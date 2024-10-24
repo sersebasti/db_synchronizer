@@ -40,7 +40,7 @@ $transfer_method_post_state = $conf['transfer_method']['post']['active'];
 $url = $conf['transfer_method']['post']['url'];
 
 require_once __DIR__ . '/../vendor/autoload.php';
-
+require_once __DIR__ . '/../generic.php';
 
 // Import Monolog classes
 use Monolog\Logger;
@@ -391,10 +391,4 @@ else{
 /* Stop */
 $log_msg = "Stop Generate and Send SQL";
 $log->info($log_msg);
-
-function _echo($log_msg, $echo){
-    //file_put_contents("./".$log_filename, date("Y-m-d H:i:s") . ': '.$log_msg.PHP_EOL,FILE_APPEND );
-    if($echo == 1){echo $log_msg.'<br>';}
-    elseif($echo == 2){die($log_msg.'<br>');}
-}
 ?>
