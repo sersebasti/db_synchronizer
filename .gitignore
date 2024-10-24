@@ -1,2 +1,2 @@
-vendor/
-main/sql/
+db_synchronizer/vendor/
+db_synchronizer/main/sql/

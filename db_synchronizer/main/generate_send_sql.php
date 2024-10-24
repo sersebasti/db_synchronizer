@@ -47,7 +47,6 @@ use Monolog\Logger;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Handler\ErrorLogHandler;
 
-
 // Define the folder path - Create the folder if it doesn't exist
 $logFolder = __DIR__ . '/' . $logs_folder . '/';  
 if (!file_exists($logFolder)) {mkdir($logFolder, 0777, true);}
@@ -66,10 +65,6 @@ $handler->setFilenameFormat('{filename}-{date}', 'Y-m-d');
 
 // Add the handler to the logger
 $log->pushHandler($handler);
-
-
-// Example log message
-$log->info('This is a log entry.');
 
 
 $log->info("Start Generate and Send SQL");
@@ -107,6 +102,12 @@ try {
     // Consider re-throwing the exception or gracefully handling the error
     // throw new Exception('Database connection failed');
 }
+
+
+
+use Predis\Client;
+
+$redis = new Client();
 
 
 

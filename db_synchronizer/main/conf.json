@@ -20,7 +20,7 @@
     },
     "transfer_method": {
         "post": {
-          "active": true,
+          "active": false,
           "url": "https://www.servicecontrolroom.it/dev_sergio/db_synchronizer/remote/" 
         },
         "sftp": {}
