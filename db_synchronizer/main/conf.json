@@ -12,11 +12,19 @@
       "time_zone": "Europe/Amsterdam"
     },
     "paths": {
+        "sql_dir": "sql", 
         "sql_filename": "changes.sql",
         "start_time_filename": "start_time_filename.txt",
-        "log_filename": "log.txt"
+        "logs_folder": "logs",
+        "log_filename": "log"
     },
-    "period_min": "25",
-    "url": "https://www.servicecontrolroom.it/dev_sergio/db_synchronizer/remote/"
+    "transfer_method": {
+        "post": {
+          "active": true,
+          "url": "https://www.servicecontrolroom.it/dev_sergio/db_synchronizer/remote/" 
+        },
+        "sftp": {}
+    },
+    "period_min": "25"
 }
     

@@ -10,10 +10,8 @@
 /* Set configuration */
 
 
-require_once __DIR__ . '/../vendor/autoload.php';
-
-
-
+//error_reporting(E_ALL);
+//ini_set('display_errors', 1);
 
 $conf = json_decode(file_get_contents("./conf.json"), true);
 
@@ -33,25 +31,84 @@ $timestamp_col = $conf['database']['timestamp_col'];
 $sql_dir = $conf['paths']['sql_dir'];
 $sql_filename = $conf['paths']['sql_dir']."/".$conf['paths']['sql_filename'];
 $start_time_filename = $conf['paths']['start_time_filename'];
+$logs_folder = $conf['paths']['logs_folder'];
 $log_filename = $conf['paths']['log_filename'];
 
 $period_min =  $conf['period_min'];
 
-/* Start */
-$log_msg = "Start Generate and Send SQL";
-wlog($log_msg, $log_filename, 1);
+$transfer_method_post_state = $conf['transfer_method']['post']['active'];
+$url = $conf['transfer_method']['post']['url'];
 
-// Connect to your database
+require_once __DIR__ . '/../vendor/autoload.php';
 
+
+// Import Monolog classes
+use Monolog\Logger;
+use Monolog\Handler\RotatingFileHandler;
+use Monolog\Handler\ErrorLogHandler;
+
+
+// Define the folder path - Create the folder if it doesn't exist
+$logFolder = __DIR__ . '/' . $logs_folder . '/';  
+if (!file_exists($logFolder)) {mkdir($logFolder, 0777, true);}
+
+// Create a logger instance
+$log = new Logger('my_logger');
+
+// Define the log file path inside the folder
+$logFile = $logFolder . $log_filename . '.log';
+
+
+$handler = new RotatingFileHandler($logFile, 12, Logger::DEBUG);
+
+// Set filename format for daily rotation
+$handler->setFilenameFormat('{filename}-{date}', 'Y-m-d');
+
+// Add the handler to the logger
+$log->pushHandler($handler);
+
+
+// Example log message
+$log->info('This is a log entry.');
+
+
+$log->info("Start Generate and Send SQL");
+$log->info('Conf: ', $conf);
+
+
+// Connect to your database securely
 try {
-    $pdo = new PDO('mysql:host='.$servername.';dbname='.$db, $username,$password);
-    $log_msg = "Connected to server: " .$servername. " database:" . $db;
-    wlog($log_msg, $log_filename, 1);
-    
+    // Set up the PDO options for safer connection
+    $options = [
+        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,  // Throw exceptions on errors
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,        // Set default fetch mode
+        PDO::ATTR_EMULATE_PREPARES   => false,                   // Disable emulated prepared statements
+    ];
+
+    // Establish the database connection
+    $pdo = new PDO('mysql:host='.$servername.';port='.$port.';dbname='.$db, $username, $password, $options);
+
+    // Log the successful connection (do not expose sensitive details in production)
+    $log_msg = "Connected to server: " . $servername . " database:" . $db;
+    $log->info($log_msg);
+    _echo($log_msg,1);
 
 } catch (PDOException $e) {
-    wlog("Error connection to server: " .$servername. " database:" .$db. " error: ".$e->getMessage(), $log_filename, 2);
+    // Log a generic error message in production (avoid exposing sensitive information)
+    $error_message = "Error connecting to the database: " . $e->getMessage();
+    $log->error($error_message);
+
+    // Output the error message directly on the webpage
+    _echo($log_msg,2);
+
+    // Optionally, you could log the specific message in development mode:
+    // $error_message = "Error connecting to server: " .$servername. " database: " . $db . " error: " . $e->getMessage()
+
+    // Consider re-throwing the exception or gracefully handling the error
+    // throw new Exception('Database connection failed');
 }
+
+
 
 
 // Output changes to an SQL script
@@ -63,6 +120,8 @@ $endTime = date("Y-m-d H:i:s");
 // Check if there is a saved end time from the previous execution
 if (file_exists('./'.$start_time_filename)) {
     $startTime = trim(file_get_contents('./'.$start_time_filename));
+    $log->info("Start Time set to: " . $startTime);
+    _echo($log_msg,1);
 } else {
 
     // Calculate the timestamp for minutes ago
@@ -70,8 +129,9 @@ if (file_exists('./'.$start_time_filename)) {
 
     // Format the timestamp as 'Y-m-d H:i:s'
     $startTime = date("Y-m-d H:i:s", $MinutesAgoTimestamp );
-
-    wlog("Start Time not found - set to: " . $startTime, $log_filename, 1);
+    
+    $log->info("Start Time not found - set to: " . $startTime);
+    _echo($log_msg,1);
 }
 
 
@@ -81,7 +141,8 @@ if (file_exists('./'.$start_time_filename)) {
 /*************************************************************************/
 
 $log_msg = "Start searching records new or modified records";
-wlog($log_msg, $log_filename, 1);
+$log->info($log_msg);
+_echo($log_msg,1);
 
 
 // Fetch column names
@@ -97,10 +158,11 @@ $query->execute();
 $newRecords = $query->fetchAll(PDO::FETCH_ASSOC);
 
 $log_msg = "Executed query: " . $sql;
-wlog($log_msg, $log_filename, 1);
+$log->info($log_msg);
 
 $log_msg = "Found: " . count($newRecords) . " records new or modified";
-wlog($log_msg, $log_filename, 1);
+$log->info($log_msg);
+_echo($log_msg,1);
 
 
 if (!empty($newRecords)) {
@@ -126,7 +188,8 @@ if (!empty($newRecords)) {
 }
 
 $log_msg = "Stop searching records new or modified records";
-wlog($log_msg, $log_filename, 1);
+$log->info($log_msg);
+_echo($log_msg,1);
 
 
 
@@ -135,7 +198,8 @@ wlog($log_msg, $log_filename, 1);
 /*************************************************************************/
 
 $log_msg = "Start searching deleted records";
-wlog($log_msg, $log_filename, 1);
+$log->info($log_msg);
+_echo($log_msg,1);
 
 
 // Get primary Key
@@ -150,21 +214,21 @@ if(!isset($key) || strlen($key) == 0){
     $result = $query->fetchAll(PDO::FETCH_ASSOC);
 
     $log_msg = "Executed query: " . $sql;
-    wlog($log_msg, $log_filename, 1);
+    $log->info($log_msg);
     
     if(count($result) == 1){
         $key = $result['COLUMN_NAME'];
         $log_msg = "Found primary key: " . $key;
-        wlog($log_msg, $log_filename, 1);
+        $log->info($log_msg);
     }
     else{
         $log_msg = 'Not found primary key for taable: ' . $table;
-        wlog($log_msg, $log_filename, 2);
+        $log->info($log_msg);
     }
 }
 else{
     $log_msg = "Found primary key: " . $key;
-    wlog($log_msg, $log_filename, 1);
+    $log->info($log_msg);
 }
 
 
@@ -175,10 +239,11 @@ $query->execute();
 $deletedRecords = $query->fetchAll(PDO::FETCH_ASSOC);
 
 $log_msg = "Executed query: " . $sql;
-wlog($log_msg, $log_filename, 1);
+$log->info($log_msg);
 
 $log_msg = "Found: " . count($deletedRecords) . " deleted records";
-wlog($log_msg, $log_filename, 1);
+$log->info($log_msg);
+_echo($log_msg,1);
 
 if (!empty($deletedRecords)) {
     foreach ($deletedRecords as $deletedRecord) {
@@ -196,44 +261,48 @@ $query = $pdo->prepare($sql);
 $query->execute();
 
 $log_msg = "Executed query: " . $sql;
-wlog($log_msg, $log_filename, 1);
+$log->info($log_msg);
 
 $sql = "INSERT INTO ".$db.".".$snapshot_table."(".$key.") SELECT ".$key." FROM ".$db.".".$table;
 $query = $pdo->prepare($sql);
 $query->execute();
 
 $log_msg = "Executed query: " . $sql;
-wlog($log_msg, $log_filename, 1);
+$log->info($log_msg);
 
 
 $log_msg = "Stop searching deleted records";
-wlog($log_msg, $log_filename, 1);
-
+$log->info($log_msg);
+_echo($log_msg,1);
 
 // Close connection to dB
 $pdo = null;
 $log_msg = "Closed connection with dB";
-wlog($log_msg, $log_filename, 1);
+$log->info($log_msg);
+_echo($log_msg,1);
 
 // Save the end time for the next execution
 file_put_contents('./'.$start_time_filename, $endTime);
 
 $log_msg = "Saved last execution time: " . $endTime . " in ". $start_time_filename;
-wlog($log_msg, $log_filename, 1);
+$log->info($log_msg);
+_echo($log_msg,1);
 
 
 // Check if the file is empty
 if (filesize($sql_filename) === 0) {
     $log_msg = "No changes";
-    wlog($log_msg, $log_filename, 1);
+    $log->info($log_msg);
+    _echo($log_msg,1);
 
     $log_msg = "Stop Generate SQL";
-    wlog($log_msg, $log_filename, 1);
+    $log->info($log_msg);
 }
-else{
+else if ($transfer_method_post_state){
 
     $log_msg = "Start sending post request to remote server at: " . $url;
-    wlog($log_msg, $log_filename, 1);
+    $log->info($log_msg);
+    _echo($log_msg,1);
 
 
     $newFileName = $conf['paths']['sql_dir']."/".$startTime. "_" . $endTime . "_" . $conf['paths']['sql_filename'];
@@ -242,14 +311,14 @@ else{
     $newFileName = str_replace(':', '', $newFileName);
 
     $log_msg = "Changes Update/Insert: " . count($newRecords);
-    wlog($log_msg, $log_filename, 1);
+    $log->info($log_msg);
 
     $log_msg = "Changes Delete: " . count($deletedRecords);
-    wlog($log_msg, $log_filename, 1);
+    $log->info($log_msg);
 
     rename(__DIR__ . '/' . $sql_filename, __DIR__ . '/' .$newFileName);
     $log_msg = "renamed: " . __DIR__ . '/' . $sql_filename . ' into: ' . __DIR__ . '/' .$newFileName;
-    wlog($log_msg, $log_filename, 1);
+    $log->info($log_msg);
 
     // Initialize a cURL session
     $ch = curl_init();
@@ -285,18 +354,22 @@ else{
         $curlError = curl_error($ch);
         $curlErrno = curl_errno($ch);
         $log_msg = 'Response:' . 'cURL error: ' . $curlError . ' (errno: ' . $curlErrno . ')';
-        wlog($log_msg, $log_filename, 1);
+        $log->error($log_msg);
+        _echo($log_msg,1);
         //throw new Exception('cURL error: ' . $curlError . ' (errno: ' . $curlErrno . ')');
     } else {
         // Print the response from the server
         $log_msg = "Response from server - start:";
-        wlog($log_msg, $log_filename, 1);
+        $log->info($log_msg);
+        _echo($log_msg,1);
 
         $log_msg = $response;
-        wlog($log_msg, $log_filename, 1);
+        $log->info($log_msg);
+        _echo($log_msg,1);
 
         $log_msg = "Response from server - stop";
-        wlog($log_msg, $log_filename, 1);
+        $log->info($log_msg);
+        _echo($log_msg,1);
     }
 
 
@@ -305,19 +378,23 @@ else{
 
     
     $log_msg = "Stop sending post request to remote server";
-    wlog($log_msg, $log_filename, 1);
+    $log->info($log_msg);
+    _echo($log_msg,1);
+}
+else{
+    $log_msg = "No tranfer method selected";
+    $log->info($log_msg);
+    _echo($log_msg,1);
 }
 
 
 /* Stop */
 $log_msg = "Stop Generate and Send SQL";
-wlog($log_msg, $log_filename, 1);
+$log->info($log_msg);
 
-
-function wlog($log_msg, $log_filename, $echo){
-    file_put_contents("./".$log_filename, date("Y-m-d H:i:s") . ': '.$log_msg.PHP_EOL,FILE_APPEND );
+function _echo($log_msg, $echo){
+    //file_put_contents("./".$log_filename, date("Y-m-d H:i:s") . ': '.$log_msg.PHP_EOL,FILE_APPEND );
     if($echo == 1){echo $log_msg.'<br>';}
     elseif($echo == 2){die($log_msg.'<br>');}
 }
-
 ?>
