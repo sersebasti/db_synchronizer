@@ -73,68 +73,68 @@ $log->info('Conf: ', $conf);
 
 // Connect to your database securely
 try {
-    // Set up the PDO options for safer connection
+
     $options = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,  // Throw exceptions on errors
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,        // Set default fetch mode
         PDO::ATTR_EMULATE_PREPARES   => false,                   // Disable emulated prepared statements
     ];
 
-    // Establish the database connection
     $pdo = new PDO('mysql:host='.$servername.';port='.$port.';dbname='.$db, $username, $password, $options);
 
-    // Log the successful connection (do not expose sensitive details in production)
     $log_msg = "Connected to server: " . $servername . " database:" . $db;
     $log->info($log_msg);
     _echo($log_msg,1);
 
 } catch (PDOException $e) {
-    // Log a generic error message in production (avoid exposing sensitive information)
     $error_message = "Error connecting to the database: " . $e->getMessage();
     $log->error($error_message);
-
-    // Output the error message directly on the webpage
     _echo($log_msg,2);
-
-    // Optionally, you could log the specific message in development mode:
-    // $error_message = "Error connecting to server: " .$servername. " database: " . $db . " error: " . $e->getMessage()
-
-    // Consider re-throwing the exception or gracefully handling the error
-    // throw new Exception('Database connection failed');
 }
 
 
 
 use Predis\Client;
 
-$redis = new Client();
+
+$redis = new Client([
+    'scheme' => 'tcp',
+    'host'   => 'redis',  // This should match the service name in Docker Compose
+    'port'   => 6379      // Default Redis port
+]);
 
 
+$thisEndExecutionKey = 'script:this_execution_end_timestamp'; // Key for Redis
+$endTimeStamp = new DateTime(); 
+$endTimeStamp = $endTimeStamp->format('Y-m-d H:i:s');
+
+//$redis->set($thisEndExecutionKey, $endTimeStamp->format('Y-m-d H:i:s'));
+//$end_timestamp = $redis->get($thisEndExecutionKey);
+
+$thisStartExecutionKey = 'script:this_execution_start_timestamp';
+$startTimeStamp = $redis->get($thisStartExecutionKey);
 
 
-// Output changes to an SQL script
-$sql_file = fopen('./'.$sql_filename, 'w');
-
-// Get the current timestamp
-$endTime = date("Y-m-d H:i:s");
-
-// Check if there is a saved end time from the previous execution
-if (file_exists('./'.$start_time_filename)) {
-    $startTime = trim(file_get_contents('./'.$start_time_filename));
-    $log->info("Start Time set to: " . $startTime);
-    _echo($log_msg,1);
-} else {
+// if not found start timestamp in Y-m-d H:i:s format
+if(DateTime::createFromFormat('Y-m-d H:i:s', $startTimeStamp) !== true){
 
     // Calculate the timestamp for minutes ago
-    $MinutesAgoTimestamp  = strtotime('-'.$period_min.' minutes');
-
+    $MinutesAgoTimestamp = strtotime('-'.$period_min.' minutes');
+      
     // Format the timestamp as 'Y-m-d H:i:s'
-    $startTime = date("Y-m-d H:i:s", $MinutesAgoTimestamp );
-    
-    $log->info("Start Time not found - set to: " . $startTime);
+    $startTimeStamp = date("Y-m-d H:i:s", $MinutesAgoTimestamp );
+
+    $log->info("Start timestamp not found. Set to: " . $startTimeStamp);
+    _echo($log_msg,1);
+}
+else{
+    $log->info("Start timestamp set to: " . $startTimeStamp);
     _echo($log_msg,1);
 }
 
+
+// Open file to store changes as SQL querys 
+$sql_file = fopen('./'.$sql_filename, 'w');
 
 
 /*************************************************************************/ 
@@ -152,8 +152,9 @@ $query = $pdo->prepare($sql);
 $query->execute();
 $columns = $query->fetchAll(PDO::FETCH_COLUMN);
 
-// Finde new / modified records
-$sql = "SELECT * FROM $table WHERE $timestamp_col > '".$startTime."' AND $timestamp_col <= '".$endTime."'";
+// Finde new / modified records                        
+$sql = "SELECT * FROM $table WHERE $timestamp_col > '$startTimeStamp' AND $timestamp_col <= '$endTimeStamp'";
+
 $query = $pdo->prepare($sql);
 $query->execute();
 $newRecords = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -183,7 +184,6 @@ if (!empty($newRecords)) {
                 ON DUPLICATE KEY UPDATE data = VALUES(data), " . implode(", ", $updateClauses);
         
         fwrite($sql_file, $insertQuery . ";\n");
-
 
     }
 }
@@ -282,22 +282,27 @@ $log_msg = "Closed connection with dB";
 $log->info($log_msg);
 _echo($log_msg,1);
 
-// Save the end time for the next execution
-file_put_contents('./'.$start_time_filename, $endTime);
 
-$log_msg = "Saved last execution time: " . $endTime . " in ". $start_time_filename;
+
+$redis->set($thisStartExecutionKey, $endTimeStamp);
+$log_msg = "Saved this end execution time: " . $endTimeStamp . " in  key". $thisStartExecutionKey;
 $log->info($log_msg);
 _echo($log_msg,1);
 
+$newFileName = $conf['paths']['sql_dir']."/".$startTimeStamp. "_" . $endTimeStamp . "_" . $conf['paths']['sql_filename'];
+$newFileName = str_replace(' ', '', $newFileName);
+$newFileName = str_replace('-', '', $newFileName);
+$newFileName = str_replace(':', '', $newFileName);
+
+rename(__DIR__ . '/' . $sql_filename, __DIR__ . '/' .$newFileName);
+$log_msg = "renamed: " . __DIR__ . '/' . $sql_filename . ' into: ' . __DIR__ . '/' .$newFileName;
+$log->info($log_msg);
 
 // Check if the file is empty
 if (filesize($sql_filename) === 0) {
     $log_msg = "No changes";
     $log->info($log_msg);
     _echo($log_msg,1);
-
-    $log_msg = "Stop Generate SQL";
-    $log->info($log_msg);
 }
 else if ($transfer_method_post_state){
 
@@ -306,20 +311,13 @@ else if ($transfer_method_post_state){
     _echo($log_msg,1);
 
 
-    $newFileName = $conf['paths']['sql_dir']."/".$startTime. "_" . $endTime . "_" . $conf['paths']['sql_filename'];
-    $newFileName = str_replace(' ', '', $newFileName);
-    $newFileName = str_replace('-', '', $newFileName);
-    $newFileName = str_replace(':', '', $newFileName);
-
     $log_msg = "Changes Update/Insert: " . count($newRecords);
     $log->info($log_msg);
 
     $log_msg = "Changes Delete: " . count($deletedRecords);
     $log->info($log_msg);
 
-    rename(__DIR__ . '/' . $sql_filename, __DIR__ . '/' .$newFileName);
-    $log_msg = "renamed: " . __DIR__ . '/' . $sql_filename . ' into: ' . __DIR__ . '/' .$newFileName;
-    $log->info($log_msg);
+
 
     // Initialize a cURL session
     $ch = curl_init();
