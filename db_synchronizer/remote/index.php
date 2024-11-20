@@ -2,8 +2,13 @@
 $file_result = "";
 $file = $_FILES['file'];
 
+$conf = json_decode(file_get_contents("./conf.json"), true);
+
+
+$upload_dir = $conf['paths']['upload_dir'];
+
 //check whether main upload folder the exists and/or create
-$uploaddir = getcwd() . "/upload"."/";
+$uploaddir = getcwd()."/".$upload_dir."/";
 if(!(file_exists($uploaddir))){
   mkdir($uploaddir);
   chmod($uploaddir, 0777);

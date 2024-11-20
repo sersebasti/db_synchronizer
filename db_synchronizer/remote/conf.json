@@ -6,23 +6,12 @@
       "username": "root",
       "password": "sW1OJTmFIyudlVIk",
       "table": "ping",
-      "pk": "ID",
-      "timestamp_col": "modified_at",
-      "time_zone": "Europe/Amsterdam"
+      "pk": "ID"
     },
     "paths": {
-        "sql_dir": "sql", 
-        "sql_filename": "changes.sql",
+        "upload_dir": "upload", 
         "logs_folder": "logs",
         "log_filename": "log"
-    },
-    "transfer_method": {
-        "post": {
-          "active": true,
-          "url": "https://www.asts.it/db_synchronizer/remote/" 
-        },
-        "sftp": {}
-    },
-    "period_min": "25"
+    }
 }
     
