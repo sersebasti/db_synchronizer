@@ -1,0 +1,28 @@
+{
+    "database":{
+      "server": "10.115.1.100",
+      "db": "alstom",
+      "port": "3306",
+      "username": "root",
+      "password": "sW1OJTmFIyudlVIk",
+      "table": "ping",
+      "pk": "ID",
+      "timestamp_col": "modified_at",
+      "time_zone": "Europe/Amsterdam"
+    },
+    "paths": {
+        "sql_dir": "sql", 
+        "sql_filename": "changes.sql",
+        "logs_folder": "logs",
+        "log_filename": "log"
+    },
+    "transfer_method": {
+        "post": {
+          "active": true,
+          "url": "https://www.asts.it/db_synchronizer/remote/" 
+        },
+        "sftp": {}
+    },
+    "period_min": "25"
+}
+    

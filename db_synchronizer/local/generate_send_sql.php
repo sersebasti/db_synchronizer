@@ -36,7 +36,7 @@ $log_filename = $conf['paths']['log_filename'];
 $period_min =  $conf['period_min'];
 
 $transfer_method_post_state = $conf['transfer_method']['post']['active'];
-$url = $conf['transfer_method']['post']['url'];
+
 
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../generic.php';
@@ -314,7 +314,7 @@ else if ($transfer_method_post_state){
     $ch = curl_init();
 
     // Set the URL for the POST request
-    $url = $conf['url'];
+    $url = $conf['transfer_method']['post']['url'];
  
     // Define the POST data
     $postData = [
@@ -329,8 +329,8 @@ else if ($transfer_method_post_state){
     curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);  // Use multipart/form-data for file upload
     curl_setopt($ch, CURLOPT_VERBOSE, true);
     
-    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
     
     // Set any additional headers if needed
     //curl_setopt($ch, CURLOPT_HTTPHEADER, [
