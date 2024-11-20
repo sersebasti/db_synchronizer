@@ -58,7 +58,7 @@ $log = new Logger('my_logger');
 $logFile = $logFolder . $log_filename . '.log';
 
 
-$handler = new RotatingFileHandler($logFile, 12, Logger::DEBUG);
+$handler = new RotatingFileHandler($logFile, 1, Logger::DEBUG);
 
 // Set filename format for daily rotation
 $handler->setFilenameFormat('{filename}-{date}', 'Y-m-d');
@@ -104,34 +104,6 @@ $redis = new Client([
 ]);
 
 
-$thisEndExecutionKey = 'script:this_execution_end_timestamp'; // Key for Redis
-$endTimeStamp = new DateTime(); 
-$endTimeStamp = $endTimeStamp->format('Y-m-d H:i:s');
-
-//$redis->set($thisEndExecutionKey, $endTimeStamp->format('Y-m-d H:i:s'));
-//$end_timestamp = $redis->get($thisEndExecutionKey);
-
-$thisStartExecutionKey = 'script:this_execution_start_timestamp';
-$startTimeStamp = $redis->get($thisStartExecutionKey);
-
-
-// if not found start timestamp in Y-m-d H:i:s format
-if(DateTime::createFromFormat('Y-m-d H:i:s', $startTimeStamp) !== true){
-
-    // Calculate the timestamp for minutes ago
-    $MinutesAgoTimestamp = strtotime('-'.$period_min.' minutes');
-      
-    // Format the timestamp as 'Y-m-d H:i:s'
-    $startTimeStamp = date("Y-m-d H:i:s", $MinutesAgoTimestamp );
-
-    $log->info("Start timestamp not found. Set to: " . $startTimeStamp);
-    _echo($log_msg,1);
-}
-else{
-    $log->info("Start timestamp set to: " . $startTimeStamp);
-    _echo($log_msg,1);
-}
-
 
 // Open file to store changes as SQL querys 
 $sql_file = fopen('./'.$sql_filename, 'w');
@@ -144,6 +116,32 @@ $sql_file = fopen('./'.$sql_filename, 'w');
 $log_msg = "Start searching records new or modified records";
 $log->info($log_msg);
 _echo($log_msg,1);
+
+
+$thisStartExecutionKey = 'script:this_execution_start_timestamp';
+$startTimeStamp = $redis->get($thisStartExecutionKey);
+
+// if not found start timestamp in Y-m-d H:i:s format 
+if(DateTime::createFromFormat('Y-m-d H:i:s', $startTimeStamp) === false){
+
+    // Calculate the timestamp for $period_min minutes ago
+    $MinutesAgoTimestamp = strtotime('-'.$period_min.' minutes');
+      
+    // Format the timestamp as 'Y-m-d H:i:s'
+    $startTimeStamp = date("Y-m-d H:i:s", $MinutesAgoTimestamp );
+    
+    $log_msg = "Start timestamp not found. Set to: " . $startTimeStamp;
+    $log->info($log_msg);
+    _echo($log_msg,1);
+}
+else{
+    $log_msg = "Start timestamp set to: " . $startTimeStamp;
+    $log->info($log_msg);
+    _echo($log_msg,1);
+}
+
+$endTimeStamp = new DateTime(); 
+$endTimeStamp = $endTimeStamp->format('Y-m-d H:i:s');
 
 
 // Fetch column names
@@ -162,7 +160,7 @@ $newRecords = $query->fetchAll(PDO::FETCH_ASSOC);
 $log_msg = "Executed query: " . $sql;
 $log->info($log_msg);
 
-$log_msg = "Found: " . count($newRecords) . " records new or modified";
+$log_msg = "Found: " . count($newRecords) . " new or modified records";
 $log->info($log_msg);
 _echo($log_msg,1);
 
@@ -188,7 +186,7 @@ if (!empty($newRecords)) {
     }
 }
 
-$log_msg = "Stop searching records new or modified records";
+$log_msg = "Stop searching new or modified records";
 $log->info($log_msg);
 _echo($log_msg,1);
 
@@ -224,7 +222,8 @@ if(!isset($key) || strlen($key) == 0){
     }
     else{
         $log_msg = 'Not found primary key for taable: ' . $table;
-        $log->info($log_msg);
+        $log->error($log_msg);
+        _echo($log_msg,2);
     }
 }
 else{
@@ -233,62 +232,54 @@ else{
 }
 
 
-// Get previous key values from snapshot_table
-$sql = "SELECT ".$db.".".$snapshot_table.".".$key." FROM ".$db.".".$snapshot_table." LEFT JOIN ".$db.".".$table." ON ".$table.".".$key." = ".$db.".".$snapshot_table.".".$key." WHERE ".$table.".".$key." IS NULL";
-$query = $pdo->prepare($sql);
-$query->execute();
-$deletedRecords = $query->fetchAll(PDO::FETCH_ASSOC);
+$currentKeys = $pdo->query("SELECT ".$key." FROM ".$db.".".$table)->fetchAll(PDO::FETCH_COLUMN);
 
-$log_msg = "Executed query: " . $sql;
-$log->info($log_msg);
+$deletedKeys = [];
+foreach ($redis->sMembers('snapshot_keys') as $snapshotKey) {
+    if (!in_array($snapshotKey, $currentKeys)) {
+        $deletedKeys[] = $snapshotKey;  // These keys are no longer in the main table
+    }
+}
 
-$log_msg = "Found: " . count($deletedRecords) . " deleted records";
-$log->info($log_msg);
-_echo($log_msg,1);
+if (!empty($deletedKeys)) {
 
-if (!empty($deletedRecords)) {
-    foreach ($deletedRecords as $deletedRecord) {
-        $deleteQuery = "DELETE FROM ".$db.".".$table." WHERE ID = " . $deletedRecord[$key];
-        fwrite($sql_file, $deleteQuery . ";\n");
+    $log_msg = "Found: " . count($deletedKeys) . " deleted records";
+    $log->info($log_msg);
+    _echo($log_msg,1);
+
+    foreach ($deletedKeys as $key) {
+        $deleteQuery = "DELETE FROM ".$db.".".$table." WHERE ID = " . $key;
+        fwrite($sql_file, $deleteQuery . ";\n");  // Write to the file
     }
 }
 
 fclose($sql_file);
 
+$redis->del('snapshot_keys');  // Clear any previous snapshot
 
-// Create snapshot of the primary keys values
-$sql = "TRUNCATE ".$db.".".$snapshot_table;
-$query = $pdo->prepare($sql);
-$query->execute();
-
-$log_msg = "Executed query: " . $sql;
-$log->info($log_msg);
-
-$sql = "INSERT INTO ".$db.".".$snapshot_table."(".$key.") SELECT ".$key." FROM ".$db.".".$table;
-$query = $pdo->prepare($sql);
-$query->execute();
-
-$log_msg = "Executed query: " . $sql;
-$log->info($log_msg);
-
+// Loop through the keys and add each to the Redis set
+foreach ($currentKeys as $key) {
+    $redis->sAdd('snapshot_keys', $key);
+}
 
 $log_msg = "Stop searching deleted records";
 $log->info($log_msg);
 _echo($log_msg,1);
 
-// Close connection to dB
+// Closed connection with dB
 $pdo = null;
 $log_msg = "Closed connection with dB";
 $log->info($log_msg);
 _echo($log_msg,1);
 
-
-
+// Saved timestamp for start value next execution
 $redis->set($thisStartExecutionKey, $endTimeStamp);
-$log_msg = "Saved this end execution time: " . $endTimeStamp . " in  key". $thisStartExecutionKey;
+$log_msg = "Saved start value timestamp for next execution: " . $endTimeStamp;
 $log->info($log_msg);
 _echo($log_msg,1);
 
+
+// Rename SQL file
 $newFileName = $conf['paths']['sql_dir']."/".$startTimeStamp. "_" . $endTimeStamp . "_" . $conf['paths']['sql_filename'];
 $newFileName = str_replace(' ', '', $newFileName);
 $newFileName = str_replace('-', '', $newFileName);
@@ -297,6 +288,7 @@ $newFileName = str_replace(':', '', $newFileName);
 rename(__DIR__ . '/' . $sql_filename, __DIR__ . '/' .$newFileName);
 $log_msg = "renamed: " . __DIR__ . '/' . $sql_filename . ' into: ' . __DIR__ . '/' .$newFileName;
 $log->info($log_msg);
+
 
 // Check if the file is empty
 if (filesize($sql_filename) === 0) {
@@ -355,7 +347,7 @@ else if ($transfer_method_post_state){
         $log_msg = 'Response:' . 'cURL error: ' . $curlError . ' (errno: ' . $curlErrno . ')';
         $log->error($log_msg);
         _echo($log_msg,1);
-        //throw new Exception('cURL error: ' . $curlError . ' (errno: ' . $curlErrno . ')');
+
     } else {
         // Print the response from the server
         $log_msg = "Response from server - start:";
@@ -390,4 +382,5 @@ else{
 /* Stop */
 $log_msg = "Stop Generate and Send SQL";
 $log->info($log_msg);
+_echo($log_msg,1);
 ?>
