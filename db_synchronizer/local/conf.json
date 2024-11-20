@@ -6,7 +6,6 @@
       "username": "root",
       "password": "sW1OJTmFIyudlVIk",
       "table": "ping",
-      "snapshot_table": "ping_snapshot",
       "pk": "ID",
       "timestamp_col": "modified_at",
       "time_zone": "Europe/Amsterdam"
@@ -14,14 +13,13 @@
     "paths": {
         "sql_dir": "sql", 
         "sql_filename": "changes.sql",
-        "start_time_filename": "start_time_filename.txt",
         "logs_folder": "logs",
         "log_filename": "log"
     },
     "transfer_method": {
         "post": {
-          "active": false,
-          "url": "https://www.servicecontrolroom.it/dev_sergio/db_synchronizer/remote/" 
+          "active": true,
+          "url": "https://www.asts.it/db_synchronizer/remote/" 
         },
         "sftp": {}
     },

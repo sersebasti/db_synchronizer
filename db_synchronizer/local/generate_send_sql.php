@@ -23,14 +23,13 @@ $port = $conf['database']['port'];
 $db = $conf['database']['db'];
 
 $table = $conf['database']['table'];
-$snapshot_table = $conf['database']['snapshot_table'];
+//$snapshot_table = $conf['database']['snapshot_table'];
 
 $key = $conf['database']['pk'];
 $timestamp_col = $conf['database']['timestamp_col'];
 
 $sql_dir = $conf['paths']['sql_dir'];
 $sql_filename = $conf['paths']['sql_dir']."/".$conf['paths']['sql_filename'];
-$start_time_filename = $conf['paths']['start_time_filename'];
 $logs_folder = $conf['paths']['logs_folder'];
 $log_filename = $conf['paths']['log_filename'];
 
@@ -210,13 +209,13 @@ if(!isset($key) || strlen($key) == 0){
     WHERE t.constraint_type = 'PRIMARY KEY' AND t.table_schema = DATABASE() AND t.table_name = '".$table."';";
     $query = $pdo->prepare($sql);
     $query->execute();
-    $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    $deletedRecords = $query->fetchAll(PDO::FETCH_ASSOC);
 
     $log_msg = "Executed query: " . $sql;
     $log->info($log_msg);
     
-    if(count($result) == 1){
-        $key = $result['COLUMN_NAME'];
+    if(count($deletedRecords) == 1){
+        $key = $deletedRecords['COLUMN_NAME'];
         $log_msg = "Found primary key: " . $key;
         $log->info($log_msg);
     }
