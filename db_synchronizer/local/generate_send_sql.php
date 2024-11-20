@@ -209,13 +209,13 @@ if(!isset($key) || strlen($key) == 0){
     WHERE t.constraint_type = 'PRIMARY KEY' AND t.table_schema = DATABASE() AND t.table_name = '".$table."';";
     $query = $pdo->prepare($sql);
     $query->execute();
-    $deletedRecords = $query->fetchAll(PDO::FETCH_ASSOC);
+    $result = $query->fetchAll(PDO::FETCH_ASSOC);
 
     $log_msg = "Executed query: " . $sql;
     $log->info($log_msg);
     
-    if(count($deletedRecords) == 1){
-        $key = $deletedRecords['COLUMN_NAME'];
+    if(count($result) == 1){
+        $key = $result['COLUMN_NAME'];
         $log_msg = "Found primary key: " . $key;
         $log->info($log_msg);
     }
@@ -305,7 +305,7 @@ else if ($transfer_method_post_state){
     $log_msg = "Changes Update/Insert: " . count($newRecords);
     $log->info($log_msg);
 
-    $log_msg = "Changes Delete: " . count($deletedRecords);
+    $log_msg = "Changes Delete: " . count($deletedKeys);
     $log->info($log_msg);
 
 
