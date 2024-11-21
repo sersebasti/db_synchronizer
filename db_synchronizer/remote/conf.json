@@ -1,10 +1,10 @@
 {
     "database":{
-      "server": "maria-db_synchro",
+      "server": "10.115.1.99",
+      "db": "db_synchronizer_test",
       "port": "3306",
-      "db": "alstom",
       "username": "root",
-      "password": "local",
+      "password": "sW1OJTmFIyudlVIk",
       "table": "ping",
       "pk": "ID"
     },

@@ -297,6 +297,10 @@ if (filesize($sql_filename) === 0) {
 }
 else if ($transfer_method_post_state){
 
+    
+    // Set the URL for the POST request
+    $url = $conf['transfer_method']['post']['url'];
+
     $log_msg = "Start sending post request to remote server at: " . $url;
     $log->info($log_msg);
     _echo($log_msg,1);
@@ -313,8 +317,6 @@ else if ($transfer_method_post_state){
     // Initialize a cURL session
     $ch = curl_init();
 
-    // Set the URL for the POST request
-    $url = $conf['transfer_method']['post']['url'];
  
     // Define the POST data
     $postData = [

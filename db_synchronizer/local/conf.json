@@ -19,10 +19,11 @@
     "transfer_method": {
         "post": {
           "active": true,
-          "url": "https://www.asts.it/db_synchronizer/remote/" 
+          "url": "https://www.servicecontrolroom.it/dev_sergio/db_synchronizer/remote/",
+          "url_tmp": "https://www.asts.it/db_synchronizer/remote/" 
         },
         "sftp": {}
     },
     "period_min": "25"
 }
-    
+
